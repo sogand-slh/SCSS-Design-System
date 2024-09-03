@@ -1,0 +1,20 @@
+@use "./position" as *;
+
+@mixin pseudo(
+  $location: before,
+  $content: "",
+  $position: absolute,
+  $top: 0,
+  $right: 0,
+  $bottom: 0,
+  $left: 0,
+  $axis: null
+) {
+  position: relative;
+
+  &::#{$location} {
+    content: $content;
+    @include position($position: $position, $top: $top, $right: $right, $bottom: $bottom, $left: $left, $axis: $axis);
+    @content;
+  }
+}

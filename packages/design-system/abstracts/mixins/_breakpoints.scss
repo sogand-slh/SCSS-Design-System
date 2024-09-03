@@ -1,0 +1,89 @@
+@use "../configs/breakpoint" as *;
+
+$breakpoints: getBreakpoints();
+$breakpoints-length: length($breakpoints);
+
+@function _prevItem($item) {
+  $item-value: map-get($breakpoints, $item);
+  $prev-item-index: index($breakpoints, $item $item-value) - 1;
+
+  @return nth($breakpoints, $prev-item-index);
+}
+
+@function _nextItem($item) {
+  $item-value: map-get($breakpoints, $item);
+  $next-item-index: index($breakpoints, $item $item-value) + 1;
+
+  @if ($next-item-index > $breakpoints-length) {
+    @return 0;
+  }
+
+  @return nth($breakpoints, $next-item-index);
+}
+
+@mixin breakpoint($breakpoint-key, $type: "only screen", $mobile-first: true) {
+  $breakpoint-value: map-get($breakpoints, $breakpoint-key);
+
+  @if not($breakpoint-value) {
+    @error "Invalid breakpoint: #{$breakpoint}.";
+  }
+
+  $feature: if($mobile-first, min-width, max-width);
+  $calculated-breakpoint: if($mobile-first, $breakpoint-value, $breakpoint-value - 1px);
+
+  @media #{$type} and (#{$feature}: $calculated-breakpoint) {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($min-breakpoint-key, $max-breakpoint-key, $type: "only screen") {
+  $min-breakpoint-value: map-get($breakpoints, $min-breakpoint-key);
+  $max-breakpoint-value: map-get($breakpoints, $max-breakpoint-key);
+
+  @if not($min-breakpoint-value and $max-breakpoint-value) {
+    @error "Invalid breakpoint: #{$min-breakpoint-key} or #{$max-breakpoint-key}.";
+  }
+
+  @media #{$type} and (min-width: $min-breakpoint-value) and (max-width: $max-breakpoint-value) {
+    @content;
+  }
+}
+
+@mixin breakpoint-only($breakpoint-key, $type: "only screen") {
+  @if ($breakpoint-key == small) {
+    @include breakpoint($breakpoint-key, $type, $mobile-first: false) {
+      @content;
+    }
+  } @else {
+    $prev-item: _prevItem($breakpoint-key);
+    $min-breakpoint-key: nth($prev-item, 1);
+
+    @include breakpoint-between($min-breakpoint-key, $breakpoint-key, $type) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpoint-except($breakpoint-key, $type: "only screen") {
+  @if not(map-has-key($breakpoints, $breakpoint-key)) {
+    @error "Invalid breakpoint: #{$breakpoint}.";
+  }
+
+  $first-item: nth($breakpoints, 1);
+
+  $min-width: nth($first-item, 2);
+  $max-width: map-get($breakpoints, $breakpoint-key)-1;
+
+  @media #{$type} and (min-width: $min-width) and (max-width: $max-width) {
+    @content;
+  }
+
+  $next-item: _nextItem($breakpoint-key);
+  @if ($next-item !=0) {
+    $next-item-key: nth($next-item, 1);
+
+    @include breakpoint($next-item-key, $type) {
+      @content;
+    }
+  }
+}

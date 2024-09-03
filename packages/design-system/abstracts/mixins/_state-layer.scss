@@ -1,0 +1,26 @@
+@use "../functions/color" as *;
+@use "../configs/themes" as *;
+@use "./theme-scope" as *;
+
+$themes: getThemes();
+
+@mixin stateLayer($layer, $pseudo-class: hover) {
+  position: relative;
+
+  &:#{$pseudo-class} {
+    &::before {
+      opacity: 1;
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease-out;
+
+      @each $theme, $pallet in $themes {
+        @include themeScope($theme) {
+          background-color: color($layer, $theme, true);
+        }
+      }
+    }
+  }
+}

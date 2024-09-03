@@ -1,0 +1,19 @@
+@mixin border($direction: all, $width: 1px, $type: solid, $color: currentColor) {
+  $border-widths: (
+    all: $width $width $width $width,
+    horizontal: $width 0,
+    vertical: 0 $width,
+    top: $width 0 0 0,
+    right: 0 $width 0 0,
+    bottom: 0 0 $width 0,
+    left: 0 0 0 $width
+  );
+
+  @if not(map-has-key($border-widths, $direction)) {
+    @error "Invalid direction: #{$direction}.";
+  }
+
+  border-width: map-get($border-widths, $direction);
+  border-style: $type;
+  border-color: $color;
+}

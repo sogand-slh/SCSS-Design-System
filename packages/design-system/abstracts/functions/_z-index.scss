@@ -1,0 +1,11 @@
+@use "../configs/z-index" as *;
+
+@function zIndex($key) {
+    $zIndex: getZIndex();
+
+    @if not(map-has-key($zIndex, $key)) {
+        @error "Invalid z-index: #{$key}.";
+    }
+
+    @return map-get($zIndex, $key);
+}

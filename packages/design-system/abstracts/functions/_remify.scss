@@ -1,0 +1,22 @@
+@use "../configs/variables" as *;
+@use "sass:math";
+
+@function remify($value) {
+  $unit: unit($value);
+
+  @if $unit == "rem" {
+    @return $value;
+  } @else if $unit == "px" {
+    $default-rem: getRem();
+    $rem-with-unit: if(unit($default-rem) == "", $default-rem * 1px, $default-rem);
+
+    @return calc($value / $rem-with-unit * 1rem);
+  } @else if $unit == "em" {
+    @return calc($value / 1em * 1rem);
+  } @else if type-of($value) == "number" and unitless($value) {
+    $default-rem: getRem();
+    @return calc($value * 1rem);
+  } @else {
+    @error "Value must be a number with px, em, rem units, or unitless.";
+  }
+}

@@ -1,0 +1,11 @@
+@use "../configs/sizes" as *;
+
+@function size($key) {
+  $sizes: getSizes();
+
+  @if not(map-has-key($sizes, $key)) {
+    @error "Invalid size: #{$key}.";
+  }
+
+  @return map-get($sizes, $key);
+}

@@ -1,0 +1,12 @@
+$typography-breakpoint-mapper: (
+  medium: default,
+  small: small,
+);
+
+$breakpoints: (
+  small: 320px,
+  compact: 600px,
+  medium: 840px,
+  expanded: 1200px,
+  large: 1600px,
+);

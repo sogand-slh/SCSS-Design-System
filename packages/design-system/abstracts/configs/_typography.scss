@@ -1,0 +1,8 @@
+@use "../variables/typography" as *;
+
+$config-typography: () !default;
+
+@function getTypography() {
+    $config-typography: map-merge($typography, $config-typography);
+    @return $config-typography;
+}

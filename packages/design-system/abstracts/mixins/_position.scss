@@ -1,0 +1,28 @@
+@mixin position($position: absolute, $top: 0, $right: 0, $bottom: 0, $left: 0, $axis: null) {
+  position: $position;
+
+  @if $axis == "horizontal" {
+    $key: if($top !=0, top, bottom);
+    $value: if($top !=0, $top, $bottom);
+
+    #{$key}: $value;
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if $axis == "vertical" {
+    $key: if($left !=0, left, right);
+    $value: if($left !=0, $left, $right);
+
+    #{$key}: $value;
+    top: 50%;
+    transform: translateY(-50%);
+  } @else if $axis == "both" {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else {
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
+}

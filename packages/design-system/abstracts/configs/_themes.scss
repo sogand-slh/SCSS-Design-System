@@ -1,0 +1,9 @@
+@use "../../themes" as *;
+
+$config-themes: () !default;
+
+@function getThemes() {
+    $config-themes: map-merge($themes, $config-themes) !global;
+
+    @return $config-themes;
+}

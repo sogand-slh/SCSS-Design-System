@@ -1,0 +1,9 @@
+@use "../functions/shape" as *;
+
+@function shaper($multiplier: 1) {
+  @if type-of($multiplier) != "number" or $multiplier <= 0 {
+    @error "#{$multiplier} must be a positive number";
+  }
+
+  @return calc(shape(sm) * $multiplier);
+}

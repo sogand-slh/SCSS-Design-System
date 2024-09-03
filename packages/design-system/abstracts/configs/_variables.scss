@@ -1,0 +1,5 @@
+$config-rem: 16 !default;
+
+@function getRem() {
+    @return $config-rem;
+}

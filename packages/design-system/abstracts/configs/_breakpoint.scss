@@ -1,0 +1,14 @@
+@use "../variables/breakpoints" as *;
+
+$config-breakpoints: () !default;
+$config-typography-breakpoint-mapper: () !default;
+
+@function getBreakpoints() {
+  $config-breakpoints: map-merge($breakpoints, $config-breakpoints);
+  @return $config-breakpoints;
+}
+
+@function getTypographyBreakpointMapper() {
+  $config-typography-breakpoint-mapper: map-merge($typography-breakpoint-mapper, $config-typography-breakpoint-mapper);
+  @return $config-typography-breakpoint-mapper;
+}

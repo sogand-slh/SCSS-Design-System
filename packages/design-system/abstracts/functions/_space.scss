@@ -1,0 +1,11 @@
+@use "../configs/space" as *;
+
+@function space($step: 0.5) {
+  $spacer: getSpace();
+
+  @if type-of($step) != "number" or $step <= 0 {
+    @error "#{$step} must be a positive number";
+  }
+
+  @return calc($spacer * $step);
+}

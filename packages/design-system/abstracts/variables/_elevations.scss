@@ -1,0 +1,25 @@
+@use "../functions/color" as *;
+
+$elevation: (
+  colors: (
+    lowest: color(surface-container-lowest),
+    low: color(surface-container-low),
+    normal: color(surface-container),
+    high: color(surface-container-high),
+    highest: color(surface-container-highest),
+  ),
+  shadows: (
+    lowest: 1px 1px 4px 0px color(elevation-shadow),
+    low: 1px 2px 7px 0px color(elevation-shadow),
+    normal: -1px 4px 12px -2px color(elevation-shadow),
+    high: -1px 8px 20px -1px color(elevation-shadow),
+    highest: -2px 16px 24px -8px color(elevation-shadow),
+  ),
+  glows: (
+    lowest: 0px 0px 4px 0px color(elevation-glow),
+    low: 0px 0px 7px 0px color(elevation-glow),
+    normal: 0px 0px 12px -2px color(elevation-glow),
+    high: 0px 0px 16px -1px color(elevation-glow),
+    highest: 0px 0px 24px -4px color(elevation-glow),
+  ),
+);

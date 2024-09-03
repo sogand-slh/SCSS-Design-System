@@ -1,0 +1,8 @@
+@use "../variables/fonts" as *;
+
+$config-fonts: () !default;
+@function getFonts() {
+  $config-fonts: map-merge($font-faces, $config-fonts);
+
+  @return $config-fonts;
+}

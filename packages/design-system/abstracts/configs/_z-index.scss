@@ -1,0 +1,8 @@
+@use "../variables/z-index" as *;
+
+$config-zIndex: () !default;
+
+@function getZIndex() {
+  $config-zIndex: map-merge($zIndex, $config-zIndex);
+  @return $config-zIndex;
+}

@@ -1,0 +1,8 @@
+@use "../variables/colors" as *;
+
+$config-colors: () !default;
+
+@function getColors() {
+  $config-colors: map-merge($colors, $config-colors);
+  @return $config-colors;
+}

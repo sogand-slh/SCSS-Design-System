@@ -1,0 +1,8 @@
+@use "../variables/elevations" as *;
+
+$config-elevation: () !default;
+
+@function getElevation() {
+  $config-elevation: map-merge($elevation, $config-elevation);
+  @return $config-elevation;
+}

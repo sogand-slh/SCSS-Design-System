@@ -1,0 +1,65 @@
+@import "../../../packages/design-system/utils.scss";
+
+// $config-colors: ();
+
+// $config-elevation: ();
+
+// $config-themes: (
+//   light: (
+//     on-primary: colorByShade(primary, 10)
+//   ),
+//   dark: (
+//     on-primary: colorByShade(primary, 90)
+//   )
+// );
+
+$config-fonts: (
+  yekan-bakh: (
+    thin: (
+      font-weight: 100,
+      src: url("@/assets/fonts/yekan-bakh/yekanBakh-thin.woff"),
+    ),
+    light: (
+      font-weight: 300,
+      src: url("@/assets/fonts/yekan-bakh/yekanBakh-light.woff"),
+    ),
+    regular: (
+      font-weight: 400,
+      src: url("@/assets/fonts/yekan-bakh/yekanBakh-regular.woff"),
+    ),
+    medium: (
+      font-weight: 500,
+      src: url("@/assets/fonts/yekan-bakh/yekanBakh-medium.woff"),
+    ),
+  ),
+);
+
+// $config-typography: (
+//   default: (
+//     body-large: (
+//       font-size: 10000px,
+//       font-weight: 400
+//     )
+//   ),
+//   small: (
+//     body-large: (
+//       font-size: 12px,
+//       font-weight: 400
+//     )
+//   )
+// );
+
+// $config-breakpoints: ();
+// $config-typography-breakpoint-mapper: ();
+
+$config-rem: 20;
+
+$config-shapes: (
+  root: 6px,
+  sm: 3px,
+  md: 12px,
+  lg: 18px,
+  xl: 24px,
+  pill: 360px,
+  circle: 50%,
+);

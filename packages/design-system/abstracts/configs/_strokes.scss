@@ -1,0 +1,8 @@
+@use "../variables/strokes" as *;
+
+$config-strokes: () !default;
+
+@function getStrokes() {
+  $config-strokes: map-merge($strokes, $config-strokes);
+  @return $config-strokes;
+}

@@ -1,0 +1,8 @@
+@use "../variables/sizes" as *;
+
+$config-sizes: () !default;
+
+@function getSizes() {
+  $config-sizes: map-merge($sizes, $config-sizes);
+  @return $config-sizes;
+}

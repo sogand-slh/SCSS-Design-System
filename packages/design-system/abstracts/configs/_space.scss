@@ -1,0 +1,7 @@
+@use "../variables/space" as *;
+
+$config-space: $spacer !default;
+
+@function getSpace() {
+  @return $config-space;
+}

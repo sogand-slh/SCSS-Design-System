@@ -1,0 +1,40 @@
+@function sort-map($unsorted-map, $keys-order) {
+  $key-value-pairs: ();
+  @each $key, $value in $keys-order {
+    $key-value-pairs: append($key-value-pairs, ($key $value));
+  }
+
+  @for $current-index from 1 through length($key-value-pairs) {
+    @for $compare-index from 1 through (length($key-value-pairs) - 1) {
+      $current-pair: nth($key-value-pairs, $compare-index);
+      $next-pair: nth($key-value-pairs, $compare-index + 1);
+
+      $current-key: nth($current-pair, 1);
+      $next-key: nth($next-pair, 1);
+
+      $current-value: map-get($unsorted-map, $current-key);
+      $next-value: map-get($unsorted-map, $next-key);
+
+      @if $current-value > $next-value {
+        $temp-pairs: $key-value-pairs;
+        $key-value-pairs: set-nth($key-value-pairs, $compare-index, $next-pair);
+        $key-value-pairs: set-nth($key-value-pairs, $compare-index + 1, $current-pair);
+      }
+    }
+  }
+
+  $sorted-map: ();
+  @each $pair in $key-value-pairs {
+    $sorted-key: nth($pair, 1);
+    $sorted-value: nth($pair, 2);
+
+    $sorted-map: map-merge(
+      $sorted-map,
+      (
+        $sorted-key: $sorted-value
+      )
+    );
+  }
+
+  @return $sorted-map;
+}

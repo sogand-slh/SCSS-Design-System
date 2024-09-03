@@ -1,0 +1,8 @@
+@use "../variables/shape" as *;
+
+$config-shapes: () !default;
+
+@function getShapes() {
+  $config-shapes: map-merge($border-radius, $config-shapes);
+  @return $config-shapes;
+}

@@ -1,0 +1,11 @@
+@use "../configs/shapes" as *;
+
+@function shape($key) {
+    $shapes: getShapes();
+
+    @if not(map-has-key($shapes, $key)) {
+        @error "Invalid shape: #{$key}.";
+    }
+
+    @return map-get($shapes, $key);
+}

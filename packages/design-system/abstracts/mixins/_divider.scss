@@ -1,0 +1,13 @@
+@mixin divider($direction: horizontal, $size: 1px, $color: currentColor) {
+  @if $direction == horizontal {
+    width: 100%;
+    height: $size;
+    background-color: $color;
+  } @else if $direction == vertical {
+    width: $size;
+    height: 100%;
+    background-color: $color;
+  } @else {
+    @error "Invalid direction: #{$direction}.";
+  }
+}

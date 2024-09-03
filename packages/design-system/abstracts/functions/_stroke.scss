@@ -1,0 +1,11 @@
+@use "../configs/strokes" as *;
+
+@function stroke($key) {
+    $strokes: getStrokes();
+
+    @if not(map-has-key($strokes, $key)) {
+        @error "Invalid stroke: #{$key}.";
+    }
+
+    @return map-get($strokes, $key);
+}

@@ -1,0 +1,31 @@
+@use "../configs/breakpoint" as *;
+@use "../configs/typography" as *;
+@use "../functions/sort-map" as *;
+@use "./breakpoints" as *;
+
+@mixin typography($name) {
+  $typography: getTypography();
+  $breakpoints: getBreakpoints();
+  $typography-breakpoint-mapper: getTypographyBreakpointMapper();
+  $sorted-list: sort-map($breakpoints, $typography-breakpoint-mapper);
+
+  @each $breakpoint-key, $typography-key in $sorted-list {
+    $target: map-get($typography, $typography-key);
+
+    @if not($target) {
+      @error "Invalid breakpoint in typography map: #{$typography-key}.";
+    } @else {
+      @include breakpoint($breakpoint-key) {
+        $level: map-get($target, $name);
+
+        @if not($level) {
+          @error "Invalid typography name: #{$name} at breakpoint: #{$typography-key}.";
+        }
+
+        @each $key, $value in $level {
+          #{$key}: #{$value};
+        }
+      }
+    }
+  }
+}

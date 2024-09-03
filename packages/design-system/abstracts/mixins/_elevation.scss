@@ -1,0 +1,55 @@
+@use "../configs/elevation" as *;
+
+@function _get-elevation-value($type, $level) {
+  $elevation: getElevation();
+  $elevation-type-list: map-get($elevation, $type);
+
+  $value: map-get($elevation-type-list, $level);
+  @if not $value {
+    @error "Invalid elevation level: #{$level} for type: #{$type}";
+  }
+  @return $value;
+}
+
+@mixin _elevation-color($level) {
+  $mapped-color-level: _get-elevation-value("colors", $level);
+  @if not $mapped-color-level {
+    @error "Invalid elevation level: #{$level}";
+  }
+  background-color: $mapped-color-level;
+}
+
+@mixin _elevation-shadow($level) {
+  $mapped-shadow-level: _get-elevation-value("shadows", $level);
+  @if not $mapped-shadow-level {
+    @error "Invalid elevation level: #{$level}";
+  }
+  box-shadow: $mapped-shadow-level;
+}
+
+@mixin _elevation-glow($level) {
+  $mapped-glow-level: _get-elevation-value("glows", $level);
+  @if not $mapped-glow-level {
+    @error "Invalid elevation level: #{$level}";
+  }
+  box-shadow: $mapped-glow-level;
+}
+
+@mixin _elevation-dispatcher($type, $effect-level) {
+  @if $type == "shadow" {
+    @include _elevation-shadow($effect-level);
+  } @else if $type == "glow" {
+    @include _elevation-glow($effect-level);
+  } @else {
+    @error "Invalid elevation type: #{$type}. Expected 'shadow' or 'glow'.";
+  }
+}
+
+@mixin elevation($color-level, $effect-level: null, $type: null) {
+  @if $color-level {
+    @include _elevation-color($color-level);
+  }
+  @if $effect-level != null {
+    @include _elevation-dispatcher($type, $effect-level);
+  }
+}

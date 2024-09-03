@@ -1,0 +1,10 @@
+@use "../config.scss" as *;
+
+html,
+body {
+  font-family: sans-serif;
+}
+
+:root {
+  --rem: #{$config-rem};
+}
