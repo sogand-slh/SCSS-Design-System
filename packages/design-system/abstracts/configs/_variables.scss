@@ -1,5 +1,10 @@
 $config-rem: 16 !default;
+$config-language: fa !default;
 
 @function getRem() {
-    @return $config-rem;
+  @return $config-rem;
+}
+
+@function getLanguage() {
+  @return $config-language;
 }

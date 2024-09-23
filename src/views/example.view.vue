@@ -1,6 +1,15 @@
 <template>
   <div class="design">
     <h1> design system </h1>
+
+    <p class="persian">
+      اگر شما یک طراح هستید و یا با طراحی های گرافیکی سروکار دارید، به متن هایی برخورده اید که با نام لورم
+      ایپسوم شناخته می ‌شوند. لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) متنی ساختگی و بدون معنی است که
+      برای امتحان فونت و یا پر کردن فضا در یک طراحی گرافیکی و یا صنعت چاپ استفاده می شود. طراحان وب و گرافیک
+      از این متن برای پرکردن صفحه و ارائه شکل کلی طرح استفاده می ‌کنند. در این متن بیشتر با لورم ایپسوم و نحوه
+      ایجاد آن آشنا می شوید.
+    </p>
+
     <div class="design__base-card base-card">
       <div class="base-card__one">
         <h2>Hey! First Card.</h2>
@@ -88,7 +97,7 @@
 
       @include flex(column, $align: center, $justify: center);
       @include border(horizontal);
-      @include stateLayer(hover-state-layer, hover);
+      @include stateLayer(hovered-soft, hover);
     }
     &__two {
       @include base-card;
@@ -131,5 +140,9 @@
   .truncate {
     @extend %truncate;
     max-width: 200px;
+  }
+  .persian {
+    // background-color: red;
+    @include layoutDirection(rtl);
   }
 </style>

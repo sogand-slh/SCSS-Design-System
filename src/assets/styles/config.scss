@@ -63,3 +63,8 @@ $config-shapes: (
   pill: 360px,
   circle: 50%,
 );
+
+
+@include language(en) {
+  $config-language: en !global;
+}

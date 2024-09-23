@@ -47,29 +47,39 @@
       - [Elevation](#elevation-1)
         - [Elevation mixin Usage](#elevation-mixin-usage)
       - [State Layer](#state-layer)
-        - [stateLayer Function Usage](#statelayer-function-usage)
+        - [stateLayer Mixin Usage](#statelayer-mixin-usage)
       - [ThemeScope](#themescope)
-        - [ThemeScope Function Usage](#themescope-function-usage)
+        - [ThemeScope Mixin Usage](#themescope-mixin-usage)
       - [Border](#border)
-        - [Border Function Usage](#border-function-usage)
+        - [Border Mixin Usage](#border-mixin-usage)
       - [Breakpoint](#breakpoint-1)
-        - [Breakpoint Function Usage](#breakpoint-function-usage)
+        - [Breakpoint Mixin Usage](#breakpoint-mixin-usage)
+      - [Breakpoint Between](#breakpoint-between)
+        - [Breakpoint Between Mixin Usage](#breakpoint-between-mixin-usage)
+      - [Breakpoint Only](#breakpoint-only)
+        - [Breakpoint Only Mixin Usage](#breakpoint-only-mixin-usage)
+      - [Breakpoint Except](#breakpoint-except)
+        - [Breakpoint Except Mixin Usage](#breakpoint-except-mixin-usage)
       - [Dimension](#dimension)
-        - [Dimension Function Usage](#dimension-function-usage)
+        - [Dimension Mixin Usage](#dimension-mixin-usage)
       - [Divider](#divider)
-        - [Divider Function Usage](#divider-function-usage)
+        - [Divider Mixin Usage](#divider-mixin-usage)
       - [Flex](#flex)
-        - [Flex Function Usage](#flex-function-usage)
+        - [Flex Mixin Usage](#flex-mixin-usage)
       - [Placeholder](#placeholder)
-        - [Placeholder Function Usage](#placeholder-function-usage)
+        - [Placeholder Mixin Usage](#placeholder-mixin-usage)
       - [Position](#position)
-        - [Position Function Usage](#position-function-usage)
+        - [Position Mixin Usage](#position-mixin-usage)
       - [Pseudo](#pseudo)
-        - [Pseudo Function Usage](#pseudo-function-usage)
+        - [Pseudo Mixin Usage](#pseudo-mixin-usage)
       - [Scrollbar](#scrollbar)
-        - [Scrollbar Function Usage](#scrollbar-function-usage)
+        - [Scrollbar Mixin Usage](#scrollbar-mixin-usage)
       - [Typography](#typography-1)
-        - [Typography Function Usage](#typography-function-usage)
+        - [Typography Mixin Usage](#typography-mixin-usage)
+      - [Language](#language)
+        - [language Mixin Usage](#language-mixin-usage)
+      - [layoutDirection](#layoutdirection)
+        - [layoutDirection Mixin Usage](#layoutdirection-mixin-usage)
     - [🧩 Placeholders](#-placeholders)
       - [Truncate](#truncate)
         - [Truncate placeholder Usage](#truncate-placeholder-usage)
@@ -139,14 +149,14 @@ The **main.scss** file needs to be included in the project's **main.js**      fi
 The reason for separating these files is to ensure that when the project is built if a page contains multiple components that have their styles, the definitions for items inside **main.scss** for example **fonts** and **themes**, ...   are not repeated for each component.
 
 
-```bash
+```js
 // @/main.js 
 // Your code
 
 import "@packages/design-system/main.scss";
 ```
 
-```bash
+```js
 // @/assets/config.scss 
 // Your code
 
@@ -186,7 +196,7 @@ Items that can be defined in the configuration file are as follows:
 ### Colors
 💡Note: You can see the color tokens agreed between the client team and product design through the relevant link. [Figma](https://www.figma.com/design/rgJIiRrbpspJiJLYbpyDxJ/Part-Design-System---2.0.1?node-id=7879-9681)
 
-```bash
+```scss
 // define color pallettes
 
 $config-colors: (
@@ -212,7 +222,7 @@ $config-colors: (
 
 ### Themes
 The theme configuration, you can set values for various tokens to ensure consistency across different themes, such as light and dark modes. This allows your design system to adapt to different environments while maintaining a cohesive look and feel. Below is the configuration code for setting up themes:
-```bash
+```scss
 $config-themes: (
   light: (
     primary: colorByShade(primary, 40),
@@ -235,7 +245,7 @@ $config-themes: (
 
 ### Elevation
 The elevation configuration, you should use the colors specified in the style guide. Remember that according to the sample code below, you have to configure the settings for all three Elvition modes: color, shadow, and glow.
-```bash
+```scss
 $config-elevation: (
 colors: (
     lowest: color(surface-container-lowest),
@@ -268,7 +278,7 @@ colors: (
 Similar to the previous sections, you can define the font configuration for your project using the following setup. This approach ensures consistent application of font styles across your design system.
 
 💡Note: In the upcoming second phase of the design system, you'll be able to import necessary fonts directly into your project without needing to manually configure them as shown below.
-```bash
+```scss
 $config-fonts: (
   yekan-bakh: (
     thin: (
@@ -294,7 +304,7 @@ $config-fonts: (
 ### Sizes
 The sizes configuration defines a range of standardized size values that can be used consistently across your design system
 
-```bash
+```scss
 $config-sizes: (
   3x-small: 16px,
   2x-small: 20px,
@@ -313,7 +323,7 @@ $config-sizes: (
 ### Shapes
 The shape configuration, the following settings define the border-radius values used throughout your design system. These values ensure consistency in the appearance of elements like buttons, cards, and other components that require rounded corners. Below is the configuration code for setting up shapes:
 
-```bash
+```scss
 $config-shapes: (
   root: 6px,
   sm: 3px,
@@ -331,7 +341,7 @@ $config-shapes: (
 ### Spaces
 The spaces configuration defines a base unit for spacing within your design system. This unit can be used to create consistent margins, padding, and gaps between elements, ensuring a uniform and well-structured layout.
 
-```bash
+```scss
 $config-spacer: 4px;
 ```
 
@@ -340,7 +350,7 @@ $config-spacer: 4px;
 ### Strokes
 The strokes configuration defines various thickness levels for borders and lines used in your design system. These predefined stroke widths ensure consistency and clarity in visual elements such as borders, dividers, and outlines.
 
-```bash
+```scss
 $config-strokes: (
   narrow: 1px,
   semi-narrow: 1.5px,
@@ -358,7 +368,7 @@ The typography configuration defines font styles for different text elements acr
 
 💡Note: The keys (default, small) in typography must be the same as the keys defined in [config-breakpoints](#breakpoint).
 
-```bash
+```scss
 $config-typography: (
   default: (
     ...,
@@ -384,8 +394,9 @@ $config-typography: (
 ### Variables
 The variables section allows you to define custom values for your design system. For instance, setting $config-rem to 20 means that rem units will be based on this value:
 
-```bash
+```scss
 $config-rem: 20;
+$config-language: fa;
 ```
 Define any additional variables as needed for your project to ensure consistency and flexibility in your design.
 
@@ -394,7 +405,7 @@ Define any additional variables as needed for your project to ensure consistency
 ### Z-Index
 The z-index configuration defines predefined stacking order values for various elements in your design system. These values determine the layering of elements to manage their visibility and overlap.
 
-```bash
+```scss
 $config-zIndex: (
   hide: -1,
   base: 0,
@@ -418,7 +429,7 @@ These z-index values help maintain proper stacking order and visual hierarchy in
 ### Breakpoint
 The breakpoint configuration, you should define the breakpoints using the sizes specified in your style guide. The breakpoints allow your design system to adapt to different screen sizes, ensuring a responsive and consistent user experience across various devices. Below is the configuration code for setting up breakpoints:
 
-```bash 
+```scss 
 $config-typography-breakpoint-mapper: (
   medium: default,
   small: small,
@@ -450,7 +461,7 @@ According to the reviews and studies done below, a list of the most used functio
  The **`color`** function is a utility function designed to retrieve color values based on provided parameters. It supports both named CSS variables and theme-specific colors.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @function color
  * @param {String} $color (default: "") - The name of the color to be retrieved. If `is-hex-color` is false, this should correspond to a CSS variable name.
@@ -469,7 +480,7 @@ The final value that the value of the specified color. This can be either a CSS 
 ##### Color Function usage
 There's two way to use this function: 
 
-```bash
+```scss
 // First and simple
 color: color("primary"); 
 // or same as before
@@ -487,7 +498,7 @@ The **`colorByShade`** function is a utility function designed to retrieve color
 
 **Parameters:**
 
-```bash
+```scss
 /**
  * @function color
  * @param {String} $color (default: "") - The name of the color to be retrieved. This should correspond to a key in the predefined color palette.
@@ -504,7 +515,7 @@ The final value is the specified shade of the color if **`$shade`** is provided,
 ##### colorByShade Function Usage
 Now you can use use this function like this:
 
-```bash
+```scss
 // Retrieving a specific shade of a color
 $primary: colorByShade("primary", 10);
 ```
@@ -525,7 +536,7 @@ The **`remify`** function is a utility designed to convert pixel values to rem u
 💡 Note that remify is primarily used to maintain a scalable and responsive design. It takes into account the current root font size and ensures that all values are correctly converted to rem units for consistency.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @function remify
  * @param {Number} $value - The value to be converted. This should be in `px`, `em`, `rem`, or unitless.
@@ -539,7 +550,7 @@ The **`remify`** function is a utility designed to convert pixel values to rem u
 ##### Remify Function Usage
 Here's how you can use the remify function:
 
-```bash
+```scss
 // Convert 16px to rem
 $value-in-rem: remify(16px);
 
@@ -563,7 +574,7 @@ The `shape` function is a utility designed to retrieve predefined shape values f
 This function simplifies accessing shape values by referencing a key within a predefined map of shapes. If the provided key does not exist in the shape map, the function will generate an error, ensuring that only valid shape keys are used.
 
 **Parameters:**
-```bash 
+```scss 
 /**
  * @function shape
  * @param {String} $key - The key representing the desired shape. This should match a key within the shapes map.
@@ -579,7 +590,7 @@ This function simplifies accessing shape values by referencing a key within a pr
 ##### Shape Function Usage
 Here's how you can use the shape function:
 
-```bash
+```scss
 // Retrieve the border-radius for a medium shape
 $medium-radius: shape(md);
 
@@ -601,7 +612,7 @@ $invalid-radius: shape(invalid-value); // This will trigger an error: "Invalid s
 The `shaper` function is a utility that calculates and returns a border-radius value based on a multiplier. It uses the sm shape value from your design system and scales it according to the multiplier provided. This function ensures consistent scaling of border-radius values throughout your project, while still allowing flexibility in design.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @function shaper
  * @param {Number} $multiplier - A positive number that will multiply the sm shape value to determine the final border-radius.
@@ -617,7 +628,7 @@ The `shaper` function is a utility that calculates and returns a border-radius v
 ##### Shaper Function Usage
 ere's how you can use the shaper function:
 
-```bash
+```scss
 // Apply the sm shape value directly (no scaling)
 $border-radius: shaper(1); // Equivalent to shape(sm)
 
@@ -643,7 +654,7 @@ This function works by referencing a key from the sizes map defined in your desi
 
 
 **Parameters:**
-```bash
+```scss
 /**
  * @function size
  * @param {String} $key - The key representing the desired size. This should correspond to a valid key in the sizes map.
@@ -658,7 +669,7 @@ This function works by referencing a key from the sizes map defined in your desi
 ##### Size Function Usage
 Here's how you can use the size function:
 
-```bash
+```scss
 // Apply the size value to a button's padding
 .button {
     padding: size(small);
@@ -678,10 +689,48 @@ $width: size(invalid-size); // This triggers an error: "width: invalid-size."
 
 
 #### Sort map
+The `sort-map` function is a utility for sorting a map based on a specific key order, allowing you to arrange the key-value pairs in a predetermined sequence. This function is particularly useful when you need to maintain a specific order in your design system, such as ensuring that color palettes, spacing scales, or other mapped values follow a consistent order.
+
+The function works by iterating through the provided `$keys-order`, pulling the associated values from the unsorted map, and then sorting the key-value pairs based on the order of the keys in the `$keys-order` list. If the values in the map need to be rearranged (e.g., from smallest to largest), the function adjusts the order accordingly, returning a newly sorted map.
 
 **Parameters:**
+```scss
+/**
+ * @function sort-map
+ * @param {Map} $unsorted-map - The map containing unsorted key-value pairs.
+ * @param {List} $keys-order - The ordered list of keys to be used for sorting the map.
+ * @return {Map} - The sorted map, with key-value pairs arranged according to the specified key order.
+ */
+@function sort-map($unsorted-map, $keys-order) {
+  ...
+}
+```
 
 ##### Sort map Function Usage
+
+```scss
+// Example of an unsorted map of sizes
+$sizes: (
+  'large': 24px,
+  'small': 12px,
+  'medium': 16px,
+);
+
+// Specifying the desired key order for sorting
+$keys-order: ('small', 'medium', 'large');
+
+// Sort the map based on the key order
+$sorted-sizes: sort-map($sizes, $keys-order);
+
+// $sorted-sizes now contains:
+// (
+//   'small': 12px,
+//   'medium': 16px,
+//   'large': 24px,
+// )
+```
+
+This function ensures that the map adheres to the specified key order and organizes it consistently. Whether you are dealing with size values, colors, or any other key-value pairs, sort-map is an efficient way to enforce a predefined structure in your design system.
 
 <div style="margin: 50px 0; " name="spacer" />
 
@@ -692,7 +741,7 @@ The `space` function is a utility designed to calculate and return spacing value
 This function takes a multiplier as a parameter, which scales the base spacer unit defined in your design system. If the provided multiplier is not a positive number, the function will produce an error to maintain consistency.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @function space
  * @param {Number} $step - A positive number that scales the base spacer unit. This multiplier determines the final spacing value.
@@ -707,7 +756,7 @@ This function takes a multiplier as a parameter, which scales the base spacer un
 💡 Note: The space function helps maintain consistent and proportional spacing throughout your design. By using a standardized base unit, you ensure that all spacing is coherent and adheres to your design system.
 
 ##### Space Function Usage
-```bash
+```scss
 // Apply the spacing value to an element's margin
 .box {
     margin: space(2); // Multiplies the base spacer unit by 2
@@ -735,7 +784,7 @@ This function works by referencing a key from the strokes map. If the provided k
 
 **Parameters:**
 
-```bash 
+```scss 
 /**
  * @function stroke
  * @param {String} $key - The key representing the desired stroke value. This should correspond to a valid key in the strokes map.
@@ -750,7 +799,7 @@ This function works by referencing a key from the strokes map. If the provided k
 ##### Stroke Function Usage
 Here's how you can use the stroke function:
 
-```bash
+```scss
 // Retrieve the stroke value for a predefined key
 $medium-stroke: stroke(medium);
 
@@ -779,7 +828,7 @@ This function references a key from the z-index map defined in your design syste
 
 
 **Parameters:**
-```bash
+```scss
 /**
  * @function zIndex
  * @param {String} $key - The key representing the desired z-index value. This should correspond to a valid key in the z-index map.
@@ -794,7 +843,7 @@ This function references a key from the z-index map defined in your design syste
 ##### Z-Index Function Usage
 Here's how you can use the zIndex function:
 
-```bash
+```scss
 // Apply the z-index value to a modal
 .modal {
     z-index: zIndex(modal);
@@ -825,7 +874,7 @@ Each type of elevation (colors, shadows, and glows) has 5 predefined levels: low
 Never use shadow and glow modes at the same time, only one of these two modes can be used with color.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin elevation
  * @param {String} $color-level - The elevation level for the background color. This should correspond to a key in the elevation colors map (e.g., "lowest", "low", "normal", "high", "highest").
@@ -842,7 +891,7 @@ Never use shadow and glow modes at the same time, only one of these two modes ca
 ##### Elevation mixin Usage
 There's three way to use this mixin: 
 
-```bash
+```scss
 // First and simple, it just set a color elevation.
 @include elevation("lowest"); 
 
@@ -863,7 +912,7 @@ The **`stateLayer`**  mixin is a utility that provides a mechanism to apply a th
 Also this function depends on two function(getThemes,color) and mixin(themeScope).
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin StateLayer
  * @param {String} $layer (default: "") - The specific layer for which the state color needs to be applied. This is usually a string that corresponds to a color definition in the theme.
@@ -875,9 +924,9 @@ Also this function depends on two function(getThemes,color) and mixin(themeScope
 }
 ```
 
-##### stateLayer Function Usage
-```bash
- @include stateLayer(hover-state-layer, 'hover');
+##### stateLayer Mixin Usage
+```scss
+ @include stateLayer(hovered-soft, 'hover');
 ```
 
 
@@ -889,7 +938,7 @@ Also this function depends on two function(getThemes,color) and mixin(themeScope
 The **`themeScope`** mixin is a utility designed to apply styles within the context of a specific theme. It targets elements based on a data attribute that identifies the current theme. This mixin is particularly useful for managing theme-specific styles in a structured and scalable way.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin color
  * @param {String} $theme (default: "") - The name of the theme to apply the styles to. This should correspond to the value of the data-theme attribute used in your HTML.
@@ -901,10 +950,10 @@ The **`themeScope`** mixin is a utility designed to apply styles within the cont
 }
 ```
 
-##### ThemeScope Function Usage
+##### ThemeScope Mixin Usage
 As you see above in stateLayer mixin we can use this mixin like that.
 Other example:
-```bash 
+```scss 
 @include themeScope('light') {
     background-color: color(on-primary);
     color:  color(primary);
@@ -919,7 +968,7 @@ The `border` mixin is a utility for applying consistent border styles across dif
 The mixin provides flexibility by allowing you to specify the direction of the border (e.g., top, right, bottom, left, horizontal, vertical, or all), the border width, the border style, and the border color. If an invalid direction is provided, the mixin will throw an error, ensuring only valid directions are used.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin border
  * @param {String} $direction - The direction of the border. Options include `all`, `horizontal`, `vertical`, `top`, `right`, `bottom`, `left`.
@@ -932,9 +981,9 @@ The mixin provides flexibility by allowing you to specify the direction of the b
 }
 ```
 💡 Note: The border mixin ensures that borders are applied consistently, maintaining the visual integrity of your design.
-##### Border Function Usage
+##### Border Mixin Usage
 
-```bash
+```scss
 // Apply a solid border on all sides
 .box {
     @include border(all, 2px, solid, black);
@@ -963,16 +1012,152 @@ The mixin provides flexibility by allowing you to specify the direction of the b
 
 #### Breakpoint
 
+The `breakpoint` mixin is a utility for handling responsive design in a consistent and streamlined way. This mixin allows you to apply styles based on predefined breakpoints, ensuring that your design adapts effectively across different screen sizes. You can specify whether your design is mobile-first (default) or desktop-first, and the mixin will adjust accordingly.
+
+With this mixin, you can ensure that media queries are applied efficiently without manually calculating breakpoints, making your code cleaner and easier to maintain. It accepts various options to customize the media query, including the type of media (e.g., `screen`, `print`) and the breakpoint key that corresponds to your predefined map of breakpoints.
+
 
 **Parameters:**
+```scss
+/**
+ * @mixin breakpoint
+ * @param {String} $breakpoint-key - The key of the breakpoint from the predefined $breakpoints map (e.g., 'small', 'compact', 'medium').
+ * @param {String} $type - The media query type (default: "only screen").
+ * @param {Boolean} $mobile-first - Whether the design is mobile-first (default: true). Determines if `min-width` or `max-width` is used in the media query.
+ */
+@mixin breakpoint($breakpoint-key, $type: "only screen", $mobile-first: true) {
+  ...
+}
+```
 
+##### Breakpoint Mixin Usage
 
+```scss
+// Apply styles for medium-sized screens and above (mobile-first approach)
+@include breakpoint('medium') {
+    .element {
+        font-size: 18px;
+    }
+}
 
-##### Breakpoint Function Usage
+// Apply styles for screens smaller than the large breakpoint (desktop-first approach)
+@include breakpoint('large', $mobile-first: false) {
+    .element {
+        font-size: 16px;
+    }
+}
 
+// Trigger an error if an invalid breakpoint key is used
+@include breakpoint('lg') {
+    .element {
+        display: none;
+    } // This triggers an error: "Invalid breakpoint: lg."
+}
+```
 
 <div style="margin: 50px 0; " name="spacer" />
 
+
+
+#### Breakpoint Between
+
+The `breakpoint-between` mixin is designed to handle responsive design between two specified breakpoints, ensuring that styles are applied within a defined range of screen sizes. This is particularly useful when you want to target specific devices or screen sizes without affecting designs outside of that range.
+
+This mixin automatically generates a media query with both `min-width` and `max-width` values based on your predefined breakpoints map. It ensures that styles are applied only between the minimum and maximum breakpoints you specify. Additionally, it safeguards against errors by verifying that the provided breakpoints are valid.
+
+
+**Parameters:**
+```scss
+/**
+ * @mixin breakpoint-between
+ * @param {String} $min-breakpoint-key - The key of the minimum breakpoint from the predefined $breakpoints map.
+ * @param {String} $max-breakpoint-key - The key of the maximum breakpoint from the predefined $breakpoints map.
+ * @param {String} $type - The media query type (default: "only screen").
+ */
+@mixin breakpoint-between($min-breakpoint-key, $max-breakpoint-key, $type: "only screen") {
+  ...
+}
+```
+
+##### Breakpoint Between Mixin Usage
+
+```scss
+// Apply styles between small and medium-sized screens
+@include breakpoint-between('small', 'medium') {
+    .element {
+        font-size: 14px;
+    }
+}
+
+// Trigger an error if invalid breakpoints are provided
+@include breakpoint-between('expanded', 'lg') {
+    .element {
+        display: none;
+    } // This triggers an error: "Invalid breakpoint: invalid or lg."
+}
+```
+
+<div style="margin: 50px 0; " name="spacer" />
+
+#### Breakpoint Only
+
+The `breakpoint-only` mixin is a powerful utility for applying styles specifically within the range of a single breakpoint, ensuring that the design is targeted precisely at that breakpoint without affecting other screen sizes. This is useful when you want to focus your styles on a specific breakpoint, such as medium or large screens, while excluding smaller or larger breakpoints.
+
+
+**Parameters:**
+```scss
+/**
+ * @mixin breakpoint-only
+ * @param {String} $breakpoint-key - The key of the specific breakpoint from the predefined $breakpoints map.
+ * @param {String} $type - The media query type (default: "only screen").
+ */
+@mixin breakpoint-only($breakpoint-key, $type: "only screen") {
+  ...
+}
+```
+
+##### Breakpoint Only Mixin Usage
+
+```scss
+// Apply styles only for medium screens
+@include breakpoint-only('medium') {
+    .element {
+        font-size: 16px;
+    }
+}
+```
+
+<div style="margin: 50px 0; " name="spacer" />
+
+#### Breakpoint Except
+
+The `breakpoint-except` mixin is a specialized utility that allows you to apply styles to all screen sizes except the range of a specific breakpoint. This mixin is useful when you want to exclude a particular breakpoint from a set of styles, making your responsive design more flexible and adaptable to different screen sizes.
+
+
+**Parameters:**
+```scss
+/**
+ * @mixin breakpoint-except
+ * @param {String} $breakpoint-key - The key of the breakpoint to exclude from the predefined $breakpoints map.
+ * @param {String} $type - The media query type (default: "only screen").
+ */
+ @mixin breakpoint-except($breakpoint-key, $type: "only screen") {
+  ...
+}
+```
+
+##### Breakpoint Except Mixin Usage
+
+```scss
+// Apply styles to all screens except medium
+@include breakpoint-except('medium') {
+    .element {
+        font-size: 16px;
+    }
+}
+```
+
+<div style="margin: 50px 0; " name="spacer" />
 
 
 #### Dimension
@@ -981,7 +1166,7 @@ The `dimension` mixin is a utility for setting the width and height of elements 
 You can specify custom values for the width and height or use the default auto values. This mixin is particularly useful for ensuring that elements are sized according to your design specifications while maintaining flexibility for various layout needs.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin dimension
  * @param {String|Number} $width - The width of the element (default: auto).
@@ -993,8 +1178,8 @@ You can specify custom values for the width and height or use the default auto v
 ```
 💡 Note: The dimension mixin is ideal for setting dimensions in a clean, concise manner, ensuring that your elements adhere to the intended design layout.
 
-##### Dimension Function Usage
-```bash
+##### Dimension Mixin Usage
+```scss
 // Set a fixed width and height for an element
 .box {
     @include dimension(100px, 200px);
@@ -1029,7 +1214,7 @@ The `divider` mixin is a utility designed to create horizontal or vertical divid
 This mixin enables you to specify whether the divider should be horizontal or vertical, set the thickness (size) of the divider, and choose its color. If an invalid direction is provided, the mixin will throw an error, ensuring that only valid directions are used.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin divider
  * @param {String} $direction - The direction of the divider (`horizontal` or `vertical`).
@@ -1042,10 +1227,10 @@ This mixin enables you to specify whether the divider should be horizontal or ve
 ```
 💡 Note: The divider mixin is useful for creating visual separation between sections of content, ensuring consistency across your layout.
 
-##### Divider Function Usage
+##### Divider Mixin Usage
 Here's how you can use the divider mixin:
 
-```bash
+```scss
 // Create a horizontal divider with default size and color
 .horizontal-divider {
     @include divider(horizontal);
@@ -1078,7 +1263,7 @@ The `flex` mixin is a utility for easily applying common flexbox properties to e
 This mixin simplifies the process of setting up a flex container, making it easier to create flexible and responsive layouts.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin flex
  * @param {String} $direction - The flex direction (`row`, `column`, etc.) (default: row).
@@ -1093,10 +1278,10 @@ This mixin simplifies the process of setting up a flex container, making it easi
 ```
 💡 Note: The flex mixin is ideal for creating flexible and responsive container layouts with minimal code.
 
-##### Flex Function Usage
+##### Flex Mixin Usage
 Here's how you can use the flex mixin:
 
-```bash
+```scss
 // Create a basic flex container with default properties
 .flex-container {
     @include flex();
@@ -1130,7 +1315,7 @@ The `placeholder` mixin is a utility designed to apply consistent styles to plac
 This mixin is useful for customizing the appearance of placeholder text in form inputs, making sure the styles you define are consistent across all major browsers.
 **Parameters:**
 
-```bash
+```scss
 /**
  * @mixin placeholder
  * This mixin does not take any parameters directly. Instead, it applies styles to all relevant placeholder pseudo-elements.
@@ -1142,10 +1327,10 @@ This mixin is useful for customizing the appearance of placeholder text in form 
 ```
 💡 Note: The placeholder mixin ensures that the custom styles you define for placeholder text are applied across different browsers, improving the consistency of your form input designs.
 
-##### Placeholder Function Usage
+##### Placeholder Mixin Usage
 Here's how you can use the placeholder mixin:
 
-```bash
+```scss
 // Apply a custom color to placeholder text
 .input-placeholder {
     @include placeholder {
@@ -1180,7 +1365,7 @@ The `position` mixin is a versatile utility for setting an element's position an
 This mixin is helpful when you need to position elements in a precise location on the page, whether it's aligning to edges or centering within a parent container.
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin position
  * @param {String} $position - The CSS position value (e.g., `absolute`, `relative`, `fixed`).
@@ -1196,10 +1381,10 @@ This mixin is helpful when you need to position elements in a precise location o
 ```
 💡 Note: The axis parameter enables centering an element along the horizontal, vertical, or both axes, simplifying complex positioning tasks.
 
-##### Position Function Usage
+##### Position Mixin Usage
 Here's how you can use the position mixin:
 
-```bash
+```scss
 // Position an element absolutely with specific offsets
 .element-absolute {
   @include position(absolute, $top: 10px, $left: 20px);
@@ -1238,7 +1423,7 @@ The `pseudo` mixin is designed to create and style pseudo-elements (::before or 
 
 This mixin is particularly useful for adding decorative elements, backgrounds, or other enhancements to your design without altering the HTML structure.
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin pseudo
  * @param {String} $location - Specifies the pseudo-element (`before` or `after`).
@@ -1266,10 +1451,10 @@ This mixin is particularly useful for adding decorative elements, backgrounds, o
 
 💡 Note: The @content block within the mixin allows for additional custom styles to be applied directly to the pseudo-element.
 
-##### Pseudo Function Usage
+##### Pseudo Mixin Usage
 Here's how you can use the pseudo mixin:
 
-```bash
+```scss
 // Add a ::before pseudo-element with custom content and styles
 .element-with-before {
   @include pseudo(before, $content: "Hello", $top: 10px, $left: 10px) {
@@ -1308,7 +1493,7 @@ The `scrollbar` mixin is a utility for customizing the appearance of scrollbar i
 
 
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin scrollbar
  * @param {Number|String} $width - The width of the scrollbar.
@@ -1331,10 +1516,10 @@ The `scrollbar` mixin is a utility for customizing the appearance of scrollbar i
 ```
 💡 Note: The mixin primarily targets WebKit-based browsers (e.g., Chrome, Safari), as they allow for the customization of scrollbar styles using the -webkit-scrollbar pseudo-elements.
 
-##### Scrollbar Function Usage
+##### Scrollbar Mixin Usage
 Here's how you can use the scrollbar mixin:
 
-```bash
+```scss
 // Customize the scrollbar for an element with specific colors and dimensions
 .custom-scrollbar {
   @include scrollbar(
@@ -1377,7 +1562,7 @@ The scrollbar mixin provides a simple and effective way to style scrollbars, enh
 #### Typography
 The `typography` mixin is designed to apply responsive typography styles based on different breakpoints in your project. It allows you to specify a typography style by name, and the mixin automatically adjusts the typography settings across various breakpoints. This ensures that your text remains consistent and responsive, adapting seamlessly to different screen sizes.
 **Parameters:**
-```bash
+```scss
 /**
  * @mixin typography
  * @param {String} $name - The name of the typography style to apply.
@@ -1388,10 +1573,10 @@ The `typography` mixin is designed to apply responsive typography styles based o
 ```
 💡 Note: The typography mixin works in conjunction with the breakpoint and typography configurations defined in your project. It relies on maps to fetch the appropriate typography settings for each breakpoint.
 
-##### Typography Function Usage
+##### Typography Mixin Usage
 Here's how you can use the typography mixin:
 
-```bash
+```scss
 // Apply the 'body-large' typography style across breakpoints
 body {
   @include typography('body-large');
@@ -1420,7 +1605,97 @@ This mixin allows you to define and apply responsive typography styles easily, e
 <div style="margin: 50px 0; " name="spacer" />
 
 
+#### Language
+The `language` mixin is a utility for applying specific styles based on the selected language attribute in web applications. It allows you to define language-specific configurations, ensuring that the user interface adapts seamlessly to different languages. This mixin is particularly useful in applications with multiple language options, where different styling or configuration may be required based on the active language.
 
+**Parameters:**
+```scss
+
+/**
+ * @mixin language
+ * @param {String} $lang - The language code (e.g., 'en', 'fa') that corresponds to the `lang` attribute of the HTML elements.
+ */
+@mixin language($lang: fa) {
+ ...
+}
+```
+💡 Note: This mixin targets elements with the lang attribute, which can be used to apply language-specific styles or configurations. It's particularly useful for dynamically changing settings or design elements based on the current language.
+
+##### language Mixin Usage
+Here’s how you can use the language mixin:
+
+```scss 
+// Apply styles or configuration when the language is set to English
+@include language(en) {
+  $config-language: en !global; 
+  body {
+    font-family: "Arial", sans-serif;
+  }
+}
+
+// Apply styles or configuration when the language is set to Persian (Farsi)
+@include language(fa) {
+  $config-language: fa !global; 
+  body {
+    font-family: "Iran-yekan", sans-serif;
+    direction: rtl; 
+  }
+}
+
+// Example of using the mixin for other languages, like Arabic
+@include language(ar) {
+  $config-language: ar !global;
+  body {
+    font-family: "Cairo", sans-serif;
+    direction: rtl;
+  }
+}
+```
+
+This mixin allows you to adjust specific styles and configurations for different languages in your application, making it easier to handle multilingual support and directionality (e.g., LTR vs. RTL) based on the active language.
+
+<div style="margin: 50px 0; " name="spacer" />
+
+
+#### layoutDirection
+The layoutDirection mixin is a utility for setting the text alignment and layout direction in web applications. It helps ensure that the content is displayed correctly for both left-to-right (LTR) and right-to-left (RTL) languages by dynamically adjusting the text alignment and overall direction. This mixin is especially useful when building multilingual applications that need to support languages with different text flows.
+
+**Parameters:**
+```scss
+
+/**
+ * @mixin layoutDirection
+ * @param {String} $dir - The direction of the layout, either 'rtl' for right-to-left or 'ltr' for left-to-right.
+ */
+@mixin layoutDirection($dir) {
+...
+}
+```
+💡 Note: This mixin dynamically adjusts both the text alignment and the document's direction based on the input. It's crucial for ensuring proper layout and text alignment in languages that use RTL (like Arabic or Hebrew) as well as LTR (like English or Spanish).
+
+##### layoutDirection Mixin Usage
+Here’s how you can use the layoutDirection mixin:
+
+```scss 
+// Set the layout direction to RTL (Right-to-Left)
+.container-rtl {
+  @include layoutDirection(rtl);
+}
+
+// Set the layout direction to LTR (Left-to-Right)
+.container-ltr {
+  @include layoutDirection(ltr);
+}
+
+// Example usage for dynamic components based on language
+.lang-specific-container {
+  @include layoutDirection('rtl');
+}
+```
+
+This mixin provides a simple and efficient way to manage both text alignment and layout direction based on the specified flow, making it easier to handle multilingual layouts in responsive and accessible web applications.
+
+<div style="margin: 50px 0; " name="spacer" />
 
 
 ### 🧩 Placeholders
@@ -1438,7 +1713,7 @@ How It Works:
 
 Here's how you can use the truncate mixin:
 
-```bash
+```scss
 // Apply text truncation to a button
 .button {
   @extend %truncate;
@@ -1467,7 +1742,7 @@ How It Works:
 
 Here's how you can use the hide-scrollbar mixin:
 
-```bash
+```scss
 // Hide scrollbar on a container while keeping content scrollable
 .container {
   @extend %hide-scrollbar;

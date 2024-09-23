@@ -1,0 +1,4 @@
+@mixin layoutDirection($dir) {
+  text-align: if($dir== "rtl", right, left);
+  direction: $dir;
+}

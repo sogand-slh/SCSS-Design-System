@@ -1,5 +1,6 @@
 @use "../configs/breakpoint" as *;
 @use "../configs/typography" as *;
+@use "../configs/variables" as *;
 @use "../functions/sort-map" as *;
 @use "./breakpoints" as *;
 
@@ -10,7 +11,8 @@
   $sorted-list: sort-map($breakpoints, $typography-breakpoint-mapper);
 
   @each $breakpoint-key, $typography-key in $sorted-list {
-    $target: map-get($typography, $typography-key);
+    $languages: map-get($typography, $typography-key);
+    $target: map-get($languages, getLanguage());
 
     @if not($target) {
       @error "Invalid breakpoint in typography map: #{$typography-key}.";

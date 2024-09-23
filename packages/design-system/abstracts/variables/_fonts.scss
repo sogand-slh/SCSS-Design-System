@@ -5,41 +5,8 @@ $font-url: "../../fonts";
 
 $font-faces: (
   $font-primary: (
-    thin: (
-      font-weight: 100,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-thin.woff"),
-    ),
-    light: (
-      font-weight: 300,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-light.woff"),
-    ),
-    regular: (
-      font-weight: 400,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-regular.woff"),
-    ),
-    medium: (
-      font-weight: 500,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-medium.woff"),
-    ),
-    semi-bold: (
-      font-weight: 600,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-semiBold.woff"),
-    ),
-    bold: (
-      font-weight: 700,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-bold.woff"),
-    ),
-    extra-bold: (
-      font-weight: 800,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-extraBold.woff"),
-    ),
-    black: (
-      font-weight: 900,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-black.woff"),
-    ),
-    extra-black: (
-      font-weight: 950,
-      src: url("#{$font-url}/yekan-bakh/yekanBakh-extraBlack.woff"),
+    all-weights: (
+      src: url("#{$font-url}/yekan-bakh/YekanBakh-VF.woff"),
     ),
   ),
   $font-secondary: (
